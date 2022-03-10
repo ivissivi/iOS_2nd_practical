@@ -12,27 +12,55 @@ struct ContentView: View {
     
     var trafficLightColors: [Color] = [.red, .orange, .green]
     
-    @State var currentTrafficLight = Color.red
+    @State private var date = Date()
+    
+    @State var currentTrafficLight = Color.gray
+    
+    func dateToString(chosenDate selectedDate: Date) -> String {
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        var date = dateFormatter.string(from: selectedDate)
+        return date
+    }
+    
+    func getHoursFromDate(chosenDate selectedDate: Date) -> Int {
+        var hour = Calendar.current.component(.hour, from: selectedDate)
+        return hour
+    }
+    
+    func checkTimeOfDay(chosdenDate selectedHour: Int) {
+        if (selectedHour >= 6 && selectedHour <= 24) {
+            currentTrafficLight = Color.green
+        } else {
+            currentTrafficLight = Color.red
+        }
+    }
     
     var body: some View {
         
         Text("Luksofors App")
             .padding()
+            .font(.largeTitle)
         
+        Text("Selected: " + dateToString(chosenDate: date))
+            .padding()
+        
+        Text("Current hour: " + String(getHoursFromDate(chosenDate: date)))
+            .padding()
+        
+        Button("Run traffic light") {
+            checkTimeOfDay(chosdenDate: getHoursFromDate(chosenDate: date))
+        }
+
         VStack {
             
-            DatePicker(selection: /*@START_MENU_TOKEN@*/.constant(Date())/*@END_MENU_TOKEN@*/, label: {})
+            DatePicker(selection: $date, label: {})
                 .datePickerStyle(CompactDatePickerStyle())
                 .clipped()
+                .frame(maxHeight: 150)
                 .labelsHidden()
             Circle()
-                .fill(Color.red)
-                .frame(width: 100, height: 100)
-            Circle()
-                .fill(Color.orange)
-                .frame(width: 100, height: 100)
-            Circle()
-                .fill(Color.green)
+                .fill(currentTrafficLight)
                 .frame(width: 100, height: 100)
         }
     }
