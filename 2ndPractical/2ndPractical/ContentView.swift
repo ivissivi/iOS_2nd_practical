@@ -44,7 +44,7 @@ struct ContentView: View {
     
     func checkTimeOfDay(chosdenDate selectedHour: Int) {
         if (selectedHour >= 6 && selectedHour <= 24) {
-            timeRemaining = 12
+            timeRemaining = 120
             currentTrafficLightRed = darkRed
             currentTrafficLightOrange = darkOrange
             currentTrafficLightGreen = Color.green
@@ -95,7 +95,7 @@ struct ContentView: View {
                     timeRemaining -= 1
                     if(currentTrafficLightGreen == Color.green && timeRemaining == 0) {
                         isGreen = false
-                        timeRemaining = 6
+                        timeRemaining = 60
                         currentTrafficLightRed = darkRed
                         currentTrafficLightOrange = Color.orange
                         currentTrafficLightGreen = darkGreen
@@ -104,18 +104,18 @@ struct ContentView: View {
                             currentTrafficLightRed = darkRed
                             currentTrafficLightOrange = darkOrange
                             currentTrafficLightGreen = Color.green
-                            timeRemaining = 18
+                            timeRemaining = 180
                         }
                         if (isGreen == false) {
                             currentTrafficLightRed = Color.red
                             currentTrafficLightOrange = darkOrange
                             currentTrafficLightGreen = darkGreen
-                            timeRemaining = 12
+                            timeRemaining = 120
                         }
                     }
                     if(currentTrafficLightRed == Color.red && timeRemaining == 0) {
                         isGreen = true
-                        timeRemaining = 6
+                        timeRemaining = 60
                         currentTrafficLightRed = darkRed
                         currentTrafficLightOrange = Color.orange
                         currentTrafficLightGreen = darkGreen
@@ -123,13 +123,13 @@ struct ContentView: View {
                         if (isGreen == true) {
                             currentTrafficLightRed = darkRed;              currentTrafficLightOrange = darkOrange
                             currentTrafficLightGreen = Color.green
-                            timeRemaining = 18
+                            timeRemaining = 180
                         }
                         if (isGreen == false) {
                             currentTrafficLightRed = Color.red
                             currentTrafficLightOrange = darkOrange
                             currentTrafficLightGreen = darkGreen
-                            timeRemaining = 12
+                            timeRemaining = 120
                         }
                 }
             }
